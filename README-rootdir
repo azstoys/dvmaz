@@ -1,0 +1,32 @@
+This is to be put under AOSP root, android-4.4.4_r1
+
+1. replace the original dalvik
+
+ mv dalvik ../a444r1-orig-dalvik
+ cp -rd /opt/azstoys/github/a444r1_dalvik dalvik
+ make clean-libdvm clean-libdvm_assert clean-libdvm_sv clean-libdvm_interp
+ make -j4 libdvmaz
+
+2. replace the original libnativehelper
+
+ mv libnativehelper/ ../a444r1-orig-libnativehelper
+ cp -rd /opt/azstoys/github/a444r1_libnativehelper libnativehelper
+ make libnativehelperaz
+
+ Install: out/target/product/generic/system/lib/libnativehelperaz.so
+
+3. replace frameworks/base/core, to generate libandroid_runtimeaz 
+
+ mv frameworks/base/core ../a444r1-orig-f_b_core
+ cp -rd /opt/azstoys/github/a444r1_f_b_core frameworks/base/core
+ make libandroid_runtimeaz
+
+Install: out/target/product/generic/system/lib/libandroid_runtimeaz.so
+
+4. generate azapp from libandroid_runtimeaz.so
+ mv frameworks/base/cmds ../a444r1-orig-f_b_cmds
+ cp -rd /opt/azstoys/github/a444r1_f_b_cmds frameworks/base/cmds
+ make azapp
+
+Install: out/target/product/generic/system/bin/azapp
+
